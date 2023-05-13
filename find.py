@@ -1,6 +1,9 @@
+#! /usr/bin/env python3
+
 # cat command in python
 import argparse
 import os
+from pathlib import Path
 import re
 
 parser = argparse.ArgumentParser(
@@ -14,7 +17,9 @@ args = parser.parse_args()
 # get find args -- starting directory
 dir = args.start_dir
 print('Directory to start search from: ', dir)
+p = Path(dir)
 
+# identify pattern to search for, if any
 fpat = "all"
 if args.name is None:
     fpat = "*"

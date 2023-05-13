@@ -2,9 +2,7 @@
 
 # cat command in python
 import argparse
-import os
 from pathlib import Path
-import re
 
 parser = argparse.ArgumentParser(
                     prog='find',
@@ -20,21 +18,16 @@ print('Directory to start search from: ', dir)
 p = Path(dir)
 
 # identify pattern to search for, if any
-fpat = "all"
+fpat = "**/"
 if args.name is None:
-    fpat = "*"
+    fpat += "*"
 else:
-    fpat = args.name
+    fpat += args.name
 print('File pattern is: ', fpat)
 
 # open directory, get list of files
-pattern = re.compile(r"fpat")
-     
-for root, dirs, files in os.walk(dir):
-        dirs[:] = [d for d in dirs if not d.startswith(".")] 
-        for file in files:
-            found = pattern.search(file)
-            if found:
-                # print(file)
-                print(os.path.join(root, file))
+files = list(p.glob(fpat))
+      
+for file in files:
+    print(file)
 
